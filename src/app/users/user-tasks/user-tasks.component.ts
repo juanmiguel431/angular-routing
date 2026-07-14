@@ -1,5 +1,16 @@
-import { Component, computed, inject, input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  computed,
+  DestroyRef,
+  inject,
+  input,
+  OnChanges,
+  OnInit,
+  signal,
+  SimpleChanges,
+} from '@angular/core';
 import { UsersService } from '../users.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-tasks',
@@ -7,17 +18,35 @@ import { UsersService } from '../users.service';
   templateUrl: './user-tasks.component.html',
   styleUrl: './user-tasks.component.css',
 })
-export class UserTasksComponent implements OnChanges {
-  protected readonly userId = input.required<string>();
-
+export class UserTasksComponent implements OnInit {
+  protected readonly userId = signal<string | null>(null);
   private userService = inject(UsersService);
+  private activatedRoute = inject(ActivatedRoute);
+  private destroyRef = inject(DestroyRef);
 
   protected userName = computed(() => {
-    return this.userService.users.find(user => user.id === this.userId())?.name;
-  })
+    if (this.userId() === null) return undefined;
+    return this.userService.users.find((user) => user.id === this.userId())?.name;
+  });
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes); // changes to input properties
-    console.log(this.userId());
+  ngOnInit(): void {
+    const subscriber = this.activatedRoute.paramMap.subscribe({
+      next: (params) => {
+        const userId = params.get('userId');
+        console.log(userId);
+        this.userId.set(userId);
+      },
+    });
+
+    this.destroyRef.onDestroy(() => {
+      subscriber.unsubscribe();
+    });
+
+    // this.activatedRoute.params.subscribe({
+    //   next: (params) => {
+    //     console.log(params);
+    //     const userId = params['userId'];
+    //   },
+    // });
   }
 }
