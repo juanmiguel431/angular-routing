@@ -10,13 +10,14 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { UsersService } from '../users.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-user-tasks',
   standalone: true,
   templateUrl: './user-tasks.component.html',
   styleUrl: './user-tasks.component.css',
+  imports: [RouterOutlet, RouterLink],
 })
 export class UserTasksComponent implements OnInit {
   protected readonly userId = signal<string | null>(null);
@@ -33,7 +34,7 @@ export class UserTasksComponent implements OnInit {
     const subscriber = this.activatedRoute.paramMap.subscribe({
       next: (params) => {
         const userId = params.get('userId');
-        console.log(userId);
+        // console.log(userId);
         this.userId.set(userId);
       },
     });
