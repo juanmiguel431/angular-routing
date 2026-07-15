@@ -19,16 +19,10 @@ export class TasksComponent {
 
   protected sorter = computed(() => {
     if (this.sort() === 'asc') {
-      return {
-        order: 'desc',
-        label: 'descending'
-      }
+      return { order: 'desc', label: 'descending' };
     }
 
-    return {
-      order: 'asc',
-      label: 'ascending',
-    };
+    return { order: 'asc', label: 'ascending', };
   });
 
   protected userTasks = computed(() => {
