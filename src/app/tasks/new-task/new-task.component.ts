@@ -19,7 +19,7 @@ export class NewTaskComponent {
   private router = inject(Router);
 
   onSubmit() {
-    this.tasksService.addTask(
+    this.tasksService.add(
       {
         title: this.enteredTitle(),
         summary: this.enteredSummary(),

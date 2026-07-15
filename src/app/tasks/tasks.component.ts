@@ -33,6 +33,6 @@ export class TasksComponent {
       order = (a, b) => b.id > a.id ? 1 : -1
     }
 
-    return this.tasksService.allTasks().filter(task => task.userId === this.userId()).sort(order);
+    return this.tasksService.items().filter(task => task.userId === this.userId()).sort(order);
   });
 }
