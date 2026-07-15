@@ -24,6 +24,7 @@ export class UserTasksComponent implements OnInit {
   private userService = inject(UsersService);
   private activatedRoute = inject(ActivatedRoute);
   private destroyRef = inject(DestroyRef);
+  protected message = input<string>();
 
   protected userName = computed(() => {
     if (this.userId() === null) return undefined;
@@ -31,6 +32,8 @@ export class UserTasksComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    console.log(this.message());
+
     const subscriber = this.activatedRoute.paramMap.subscribe({
       next: (params) => {
         const userId = params.get('userId');
