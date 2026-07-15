@@ -1,6 +1,6 @@
 <p>
-  <a routerLink="./" [queryParams]="{ sort: 'asc' }">
-    Sorting Ascending / Descending
+  <a routerLink="./" [queryParams]="{ sort: sorter().order }">
+    Sorting {{ sorter().label }}
   </a>
 </p>
 <ul>

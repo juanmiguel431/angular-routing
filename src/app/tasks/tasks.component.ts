@@ -15,6 +15,21 @@ import { RouterLink } from '@angular/router';
 export class TasksComponent {
   public userId = input.required<string>();
   private tasksService = inject(TasksService);
+  protected sort = input<'asc' | 'desc'>();
+
+  protected sorter = computed(() => {
+    if (this.sort() === 'asc') {
+      return {
+        order: 'desc',
+        label: 'descending'
+      }
+    }
+
+    return {
+      order: 'asc',
+      label: 'ascending',
+    };
+  });
 
   protected userTasks = computed(() => {
     return this.tasksService.allTasks().filter(task => task.userId === this.userId());
