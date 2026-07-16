@@ -1,9 +1,20 @@
-import { Routes } from '@angular/router';
+import { CanMatchFn, RedirectCommand, Router, Routes } from '@angular/router';
 import { NoTaskComponent } from './tasks/no-task/no-task.component';
 import { UserTasksComponent } from './users/user-tasks/user-tasks.component';
 import { userRoutes } from './users/users.routes';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { resolvePageTitle, resolveUserName } from './resolvers/resolveUserName';
+import { inject } from '@angular/core';
+
+const dummyCanMatch: CanMatchFn = (route, segments) => {
+  const authorized = true;
+  if (!authorized) {
+    const router = inject(Router);
+    return new RedirectCommand(router.parseUrl('/unauthorized'));
+  }
+
+  return true;
+};
 
 export const routes: Routes = [
   {
@@ -15,6 +26,7 @@ export const routes: Routes = [
     path: 'users/:userId',
     component: UserTasksComponent,
     children: userRoutes,
+    canMatch: [dummyCanMatch],
     data: {
       message: 'Hello'
     },
