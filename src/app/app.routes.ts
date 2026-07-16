@@ -1,7 +1,7 @@
 import { CanMatchFn, RedirectCommand, Router, Routes } from '@angular/router';
 import { NoTaskComponent } from './tasks/no-task/no-task.component';
 import { UserTasksComponent } from './users/user-tasks/user-tasks.component';
-import { userRoutes } from './users/users.routes';
+// import { userRoutes } from './users/users.routes';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { resolvePageTitle, resolveUserName } from './resolvers/resolveUserName';
 import { inject } from '@angular/core';
@@ -25,7 +25,8 @@ export const routes: Routes = [
   {
     path: 'users/:userId',
     component: UserTasksComponent,
-    children: userRoutes,
+    // children: userRoutes, // Eager Loading
+    loadChildren: () => import('./users/users.routes').then((m) => m.userRoutes), // Lazy Loading
     canMatch: [dummyCanMatch],
     data: {
       message: 'Hello'
