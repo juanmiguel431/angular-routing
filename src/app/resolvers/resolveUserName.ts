@@ -7,3 +7,13 @@ export const resolveUserName: ResolveFn<string | undefined> = (activatedRoute, r
   const userId = activatedRoute.paramMap.get('userId');
   return userService.users.find((user) => user.id === userId)?.name;
 };
+
+export const resolvePageTitle: ResolveFn<string> = async (activatedRoute, routerState) => {
+  const userName = await resolveUserName(activatedRoute, routerState);
+
+  if (!userName) {
+    return '';
+  }
+
+  return `${userName}'s Tasks`;
+};
