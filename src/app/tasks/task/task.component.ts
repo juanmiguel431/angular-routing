@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   imports: [DatePipe, CardComponent],
 })
 export class TaskComponent {
-  task = input.required<Task>();
+  public task = input.required<Task>();
   private tasksService = inject(TasksService);
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
