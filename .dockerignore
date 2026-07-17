@@ -1,0 +1,43 @@
+# Dependencies
+node_modules
+
+# Build output
+dist
+.angular
+
+# Version control
+.git
+.gitignore
+
+# Logs
+npm-debug.log*
+*.log
+
+# IDE
+.vscode
+
+# Editor config
+.editorconfig
+
+# Documentation
+README.md
+*.md
+
+# Code formatting
+.prettierrc
+
+# Firebase
+.firebaserc
+firebase.json
+
+# Docker (not needed in image)
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# Keep package-lock.json for reproducible builds
+# package-lock.json
+
+# Testing
+*.spec.ts
+vitest.config.*
