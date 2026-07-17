@@ -1,6 +1,7 @@
 import { afterNextRender, Injectable, signal } from '@angular/core';
 import { type NewTaskData, Task } from './task/task.model';
 import { dummyTasks } from '../../dummy_tasks';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable({ providedIn: 'root' })
 export class TasksService {
@@ -20,7 +21,7 @@ export class TasksService {
   add(taskData: NewTaskData, userId: string) {
     this._tasks.update((prevTasks) => [
       {
-        id: new Date().getTime().toString(),
+        id: uuidv4(),
         userId: userId,
         title: taskData.title,
         summary: taskData.summary,
